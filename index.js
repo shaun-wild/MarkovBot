@@ -36,6 +36,8 @@ client
                 }
             }
         }
+
+        saveChains()
     })
     .on('guildCreate', guild => {
         guild.channels.forEach(channel => {
@@ -54,8 +56,6 @@ function generateMarkovChains(channel) {
                 analyzeMessage(message.author.id, message.content)
             }
         })
-
-    saveChains()
 }
 
 function analyzeMessage(user, message) {
