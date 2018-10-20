@@ -14,7 +14,7 @@ yarn
 
 To pull in the dependencies
 
-Edit `token.template.json` and `chains.template.json` to `token.json` and `chains.json` respectively.
+Rename `token.template.json` and `chains.template.json` to `token.json` and `chains.json` respectively.
 
 Place your token in the `token.json`
 
