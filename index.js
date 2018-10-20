@@ -24,7 +24,7 @@ client
             msg.guild.me.setNickname(msg.mentions.members.first().displayName)
             msg.reply("Ok, I will imitate " + msg.mentions.members.first())
         } else {
-            if (Math.random() < 0.5 && imitate) {
+            if (Math.random() < -1 && imitate) {
                 const sentence = generateMessageFor(imitate)
 
                 if (sentence) {
