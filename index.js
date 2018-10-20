@@ -1,6 +1,7 @@
 const { Client } = require('discord.js')
 const client = new Client()
 const fs = require('fs')
+const determiners = require('./determiners')
 
 const { token } = require('./token.json')
 
@@ -17,9 +18,7 @@ client
 
         analyzeMessage(msg.author.id, msg.content)
 
-        if (msg.content === '??a') {
-            generateMarkovChains(msg.channel)
-        } else if (msg.content.startsWith('??i')) {
+        if (msg.content.startsWith('??i')) {
             imitate = msg.mentions.members.first().id
             msg.guild.me.setNickname(msg.mentions.members.first().displayName)
             msg.reply("Ok, I will imitate " + msg.mentions.members.first())
