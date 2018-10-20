@@ -1,0 +1,15 @@
+{
+  "name": "MarkovBot",
+  "version": "1.0.0",
+  "description": "Uses Markov chains to imitate users.",
+  "main": "index.js",
+  "author": "Shaun Wild",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "scripts": {
+    "start:dev": "nodemon",
+    "start": "node index.js"
+  }
+}
