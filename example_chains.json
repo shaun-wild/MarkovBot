@@ -1,0 +1,13 @@
+{
+    "football": {
+        "followedBy": [
+            {
+                "id": "53535353",
+                "word": "player",
+                "occurences": 2
+            }
+        ],
+        "start": true,
+        "context": ["what", "do", "you", "want", "to", "play"]
+    }
+}

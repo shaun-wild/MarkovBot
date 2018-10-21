@@ -7,7 +7,7 @@ const { token } = require('./token.json')
 
 const chains = require("./chains.json")
 
-let imitate
+let imitate = "370869960043659264"
 
 client
     .on('ready', () => {
@@ -23,7 +23,7 @@ client
             msg.guild.me.setNickname(msg.mentions.members.first().displayName)
             msg.reply("Ok, I will imitate " + msg.mentions.members.first())
         } else {
-            if (Math.random() < -1 && imitate) {
+            if (msg.author.id == "90589366191136768" && imitate) {
                 const sentence = generateMessageFor(imitate)
 
                 if (sentence) {
