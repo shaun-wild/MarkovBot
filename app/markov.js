@@ -44,11 +44,7 @@ module.exports = {
         const startTokens = idTokens.filter(e => e.start)
             .sort((a, b) => arrayCompare.compare(b.context, context) - arrayCompare.compare(a.context, context))
 
-        console.log(startTokens)
-
         const startToken = randomArrayItem(startTokens.filter(a => arrayCompare.compare(a.context, context) && arrayCompare.compare(a.context, context) == arrayCompare.compare(startTokens[0].context, context)))
-
-        console.log(startToken)
 
         if (!startToken) {
             return
