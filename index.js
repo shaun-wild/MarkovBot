@@ -4,11 +4,12 @@ const client = new Client()
 const { token } = require('./token.json')
 
 const markov = require('./app/markov')
+const tokenizer = require('./app/tokenizer')
 
 const PREFIX = "m?"
 
 client
-    .on('ready', () => console.log("Logged in!"))
+    .on('ready', ready)
     .on('message', message)
     .on('guildCreate', guildCreate)
 
@@ -17,29 +18,50 @@ function message(message) {
         return
     }
 
+    console.log(`Message From ${message.member.displayName}@${message.guild.name}: ${message.content}`)
+
     if(message.content.startsWith(PREFIX)) {
-        handleCommand(message)
+        handleCommand(message)   
     }
 
     const user = message.author.id
     const channel = message.channel.id
     const guild = message.guild.id
 
-    markov.addToChain(message.content, user, channel, guild)
+    message.channel.fetchMessages({limit: 3})   
+    .then(messages => {
+        const contextString = messages.filter(m => !m.author.bot && m.author.id != message.author.id)
+        .map(m => m.content)
+        .join(" ")
+
+        const contextTokens = tokenizer.tokenize(contextString)
+        markov.addToChain(message.content, user, channel, guild, contextTokens)
+    })
 }
 
 function guildCreate(guild) {
 
 }
 
+function ready() {
+    console.log("Logged in as " + client.user.tag)
+    console.log(`Currently active on ${client.guilds.size} guilds: ${client.guilds.map(g => g.name)}`)
+}
+
 function handleCommand(message) {
     const args = message.content.split(" ")
     const command = args.shift().replace(PREFIX, "")
 
-    if(command == "imitate") {
-        const id = args[0]
-        const sentence = markov.generateSentence(id)
-        message.reply(sentence)
+    if(command == "reply") {
+        const sentence = args.join(" ")
+        const context = tokenizer.tokenize(sentence)
+        const response = markov.generateSentence(null, context)
+
+        if(response) {
+            message.channel.send(response)
+        } else {
+            message.channel.send("Sorry, I do not understand :(")
+        }
     }
 }
 

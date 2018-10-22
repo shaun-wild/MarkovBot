@@ -10,7 +10,9 @@ test('add to chain', () => {
     const channel = "general"
     const guild = "shaunguild"
 
-    markov.addToChain(sentence, user, channel, guild)
+    const context = ["hello", "shaun"]
+
+    markov.addToChain(sentence, user, channel, guild, context)
 
     expect(markov.chain).toEqual(
         {
@@ -20,20 +22,23 @@ test('add to chain', () => {
                     {
                         "id": "shaun",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                "context": [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": true,
             },
@@ -43,20 +48,23 @@ test('add to chain', () => {
                     {
                         "id": "shaun",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                context: [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": false,
             }
@@ -70,7 +78,9 @@ test('updating existing', () => {
     const channel = "general"
     const guild = "shaunguild"
 
-    markov.addToChain(sentence, user, channel, guild)
+    const context = ["hello", "shaun"]
+
+    markov.addToChain(sentence, user, channel, guild, context)
 
     expect(markov.chain).toEqual(
         {
@@ -80,35 +90,41 @@ test('updating existing', () => {
                     {
                         "id": "shaun",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "sir",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaun",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                "context": [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": true,
             },
@@ -118,20 +134,23 @@ test('updating existing', () => {
                     {
                         "id": "shaun",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                context: [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": false,
             },
@@ -141,20 +160,23 @@ test('updating existing', () => {
                     {
                         "id": "shaun",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                context: [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": false,
             }
@@ -168,7 +190,9 @@ test('same sentence', () => {
     const channel = "general"
     const guild = "shaunguild"
 
-    markov.addToChain(sentence, user, channel, guild)
+    const context = ["hello", "shaun"]
+
+    markov.addToChain(sentence, user, channel, guild, context)
 
     expect(markov.chain).toEqual(
         {
@@ -178,35 +202,41 @@ test('same sentence', () => {
                     {
                         "id": "shaun",
                         "word": "sir",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "sir",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "sir",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"],
                     },
                     {
                         "id": "shaun",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "friend",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                "context": [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": true,
             },
@@ -216,20 +246,23 @@ test('same sentence', () => {
                     {
                         "id": "shaun",
                         "word": "\u0003",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "\u0003",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "\u0003",
-                        "occurences": 2
+                        "occurences": 2,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                context: [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": false,
             },
@@ -239,20 +272,23 @@ test('same sentence', () => {
                     {
                         "id": "shaun",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "general",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     },
                     {
                         "id": "shaunguild",
                         "word": "\u0003",
-                        "occurences": 1
+                        "occurences": 1,
+                        "context": ["hello", "shaun"]
                     }
                 ],
-                context: [],
+                "context": ["hello", "shaun"],
                 "ids": ["shaun", "general", "shaunguild"],
                 "start": false,
             }
@@ -263,7 +299,19 @@ test('same sentence', () => {
 test('generate sentence', () => {
     const id = "shaun"
 
-    const sentence = markov.generateSentence(id)
+    const context = ["hello"]
+
+    const sentence = markov.generateSentence(id, context)
 
     expect(sentence).toMatch(/Hello (sir|friend)/)
+})
+
+test('generate sentence no context', () => {
+    const id = "shaun"
+
+    const context = []
+
+    const sentence = markov.generateSentence(id, context)
+
+    expect(sentence).toBeFalsy()
 })
