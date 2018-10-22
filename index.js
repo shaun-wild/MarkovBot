@@ -4,6 +4,7 @@ const client = new Client()
 const { token } = require('./token.json')
 
 const markov = require('./app/markov')
+
 const tokenizer = require('./app/tokenizer')
 
 const PREFIX = "m?"
@@ -12,6 +13,7 @@ client
     .on('ready', ready)
     .on('message', message)
     .on('guildCreate', guildCreate)
+    
 
 function message(message) {
     if(message.author.bot) {
@@ -49,7 +51,6 @@ function guildCreate(guild) {
 }
 
 function ready() {
-    markov.init()
     console.log("Logged in as " + client.user.tag)
     console.log(`Currently active on ${client.guilds.size} guilds: ${client.guilds.map(g => g.name)}`)
 }
