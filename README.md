@@ -14,12 +14,18 @@ yarn
 
 To pull in the dependencies
 
-Rename `token.template.json` and `chains.template.json` to `token.json` and `chains.json` respectively.
-
-Place your token in the `token.json`
+Place your token in the `token.template.json` and rename it to `token.json`
 
 Then start with
 
 ```bash
 yarn start:dev
+```
+
+### Testing
+
+Execute
+
+```bash
+yarn test
 ```
