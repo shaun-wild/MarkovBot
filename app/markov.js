@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const TERMINATOR = "xs"
+const TERMINATOR = "\u0003"
 
 const chain = {}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1540170552856" clover="3.2.0">
-  <project timestamp="1540170552857" name="All files">
+<coverage generated="1540171045274" clover="3.2.0">
+  <project timestamp="1540171045274" name="All files">
     <metrics statements="50" coveredstatements="48" conditionals="16" coveredconditionals="15" methods="14" coveredmethods="13" elements="80" coveredelements="76" complexity="0" loc="50" ncloc="50" packages="1" files="1" classes="1">
       <file name="markov.js" path="/Users/shaun.wild/Workspace/MarkovBot/app/markov.js">
         <metrics statements="50" coveredstatements="48" conditionals="16" coveredconditionals="15" methods="14" coveredmethods="13"/>

@@ -42,17 +42,17 @@ test('add to chain', () => {
                 "followedBy": [
                     {
                         "id": "shaun",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "general",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "shaunguild",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     }
                 ],
@@ -117,17 +117,17 @@ test('updating existing', () => {
                 "followedBy": [
                     {
                         "id": "shaun",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "general",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "shaunguild",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     }
                 ],
@@ -140,17 +140,17 @@ test('updating existing', () => {
                 "followedBy": [
                     {
                         "id": "shaun",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "general",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "shaunguild",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     }
                 ],
@@ -215,17 +215,17 @@ test('same sentence', () => {
                 "followedBy": [
                     {
                         "id": "shaun",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 2
                     },
                     {
                         "id": "general",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 2
                     },
                     {
                         "id": "shaunguild",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 2
                     }
                 ],
@@ -238,17 +238,17 @@ test('same sentence', () => {
                 "followedBy": [
                     {
                         "id": "shaun",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "general",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     },
                     {
                         "id": "shaunguild",
-                        "word": "xs",
+                        "word": "\u0003",
                         "occurences": 1
                     }
                 ],
