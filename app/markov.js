@@ -33,13 +33,13 @@ module.exports = {
         })
     },
     generateSentence(id) {
-        const idTokens = Object.values(chain).filter(e => e.ids.includes(id))
+        const idTokens = Object.values(chain).filter(e => e.ids.includes(id) || !id)
         const startToken = randomArrayItem(idTokens.filter(e => e.start))
 
         let result = [startToken]
 
         while(true) {
-            const nextToken = randomArrayItem(result[result.length - 1].followedBy.filter(f => f.id == id))
+            const nextToken = randomArrayItem(result[result.length - 1].followedBy.filter(f => f.id == id || !id))
 
             if(nextToken.word == TERMINATOR) {
                 return result.map(t => t.word).join(" ")
@@ -52,7 +52,7 @@ module.exports = {
 }
 
 function init() {
-    const chainsFile = fs.exists('chains.json')
+    const chainsFile = fs.existsSync('chains.json')
 
     if(chainsFile) {
         chains = JSON.parse(fs.readFileSync('chains.json', 'UTF-8'))
