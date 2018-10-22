@@ -68,10 +68,19 @@ function replyToMessage(sentence, channel) {
     const response = markov.generateSentence(null, context)
 
     if(response) {
-        channel.send(response)
+        simulateSend(response, channel)
     } else {
-        channel.send("Sorry, I do not understand :(")
+        simulateSend("Sorry, I do not understand :(", channel)
     }
+}
+
+function simulateSend(message, channel) {
+    const delay = message.length * 50
+    channel.startTyping()
+    setTimeout(() => {
+        channel.send(message)
+        channel.stopTyping()
+    }, delay)
 }
 
 client.login(token)
