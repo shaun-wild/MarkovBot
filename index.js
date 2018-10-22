@@ -23,7 +23,7 @@ function message(message) {
         return
     }
 
-    console.log(`Message From ${message.member.displayName}@${message.guild.name}: ${message.content}`)
+    console.log(`Message From ${message.author.tag}@${message.guild.name}: ${message.content}`)
 
     if(message.content.startsWith(PREFIX)) {
         handleCommand(message)   
@@ -49,6 +49,7 @@ function guildCreate(guild) {
 }
 
 function ready() {
+    markov.init()
     console.log("Logged in as " + client.user.tag)
     console.log(`Currently active on ${client.guilds.size} guilds: ${client.guilds.map(g => g.name)}`)
 }
@@ -57,9 +58,14 @@ function handleCommand(message) {
     const args = message.content.split(" ")
     const command = args.shift().replace(PREFIX, "")
 
+    console.log(command)
+
     if(command == "reply") {
         const sentence = args.join(" ")
         replyToMessage(sentence, message.channel)
+    } else if (command == "info") {
+        const entries = Object.keys(markov.chain).length
+        simulateSend(`I currently have ${entries} entries ${Math.floor(entries/1000000) * 100}% of final goal`, message.channel)
     }
 }
 

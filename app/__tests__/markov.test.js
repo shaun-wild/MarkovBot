@@ -1,7 +1,7 @@
 const markov = require('../markov')
-markov.chains = {}
 
 test('chain is blank', () => {
+    markov.chains = {}
     expect(markov.chain).toEqual({})
 })
 

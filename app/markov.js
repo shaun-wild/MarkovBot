@@ -5,8 +5,6 @@ const TERMINATOR = "\u0003"
 
 let chain = {}
 
-init()
-
 module.exports = {
     addToChain(sentence, user, channel, guild, context) {
         const tokens = sentence.split(" ")
@@ -65,9 +63,9 @@ module.exports = {
             result.push(chain[nextToken.word])
         }
     },
+    init,
     chain
 }
-
 function init() {
     const chainsFile = fs.existsSync('chains.json')
 
