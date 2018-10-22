@@ -18,6 +18,11 @@ function message(message) {
         return
     }
 
+    if(message.channel.type == "dm") {
+        replyToMessage(message.content, message.channel)
+        return
+    }
+
     console.log(`Message From ${message.member.displayName}@${message.guild.name}: ${message.content}`)
 
     if(message.content.startsWith(PREFIX)) {
@@ -30,7 +35,7 @@ function message(message) {
 
     message.channel.fetchMessages({limit: 3})   
     .then(messages => {
-        const contextString = messages.filter(m => !m.author.bot && m.author.id != message.author.id)
+        const contextString = messages.filter(m => m.author.id != message.author.id)
         .map(m => m.content)
         .join(" ")
 
@@ -54,14 +59,18 @@ function handleCommand(message) {
 
     if(command == "reply") {
         const sentence = args.join(" ")
-        const context = tokenizer.tokenize(sentence)
-        const response = markov.generateSentence(null, context)
+        replyToMessage(sentence, message.channel)
+    }
+}
 
-        if(response) {
-            message.channel.send(response)
-        } else {
-            message.channel.send("Sorry, I do not understand :(")
-        }
+function replyToMessage(sentence, channel) {
+    const context = tokenizer.tokenize(sentence)
+    const response = markov.generateSentence(null, context)
+
+    if(response) {
+        channel.send(response)
+    } else {
+        channel.send("Sorry, I do not understand :(")
     }
 }
 
