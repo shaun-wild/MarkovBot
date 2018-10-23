@@ -8,7 +8,7 @@ let chain = {}
 init()
 
 module.exports = {
-    addToChain(sentence, user, channel, guild, context) {
+    addToChain(sentence, ids, context) {
         const tokens = sentence.split(" ")
 
         tokens.forEach((token, index) => {
@@ -18,33 +18,30 @@ module.exports = {
                 chainEntry.start = true
             }
 
-            context.forEach(c => pushIfNotExist(chainEntry.context, c))
-
-            pushIfNotExist(chainEntry.ids, user),
-            pushIfNotExist(chainEntry.ids, channel)
-            pushIfNotExist(chainEntry.ids, guild)
-
             const nextToken = tokens[index + 1]
 
-            const userFollowedBy = getOrCreateFollowedBy(chainEntry.followedBy, nextToken, user)
-            const channelFollowedBy = getOrCreateFollowedBy(chainEntry.followedBy, nextToken, channel)
-            const guildFollowedBy = getOrCreateFollowedBy(chainEntry.followedBy, nextToken, guild)
+            ids.forEach(id => {
+                pushIfNotExist(chainEntry.ids, id)
 
-            context.forEach(c => pushIfNotExist(userFollowedBy.context, c))
-            context.forEach(c => pushIfNotExist(channelFollowedBy.context, c))
-            context.forEach(c => pushIfNotExist(guildFollowedBy.context, c))
+                const followedBy = getOrCreateFollowedBy(chainEntry.followedBy, nextToken, id)
+                followedBy.occurences++
 
-            userFollowedBy.occurences++
-            channelFollowedBy.occurences++
-            guildFollowedBy.occurences++
+                context.forEach(c => {
+                    const followedByContextEntry = findOrCreateContextEntry(followedBy.context, c)
+                    followedByContextEntry.occurences++
+
+                    const contextEntry = findOrCreateContextEntry(chainEntry.context, c, id)
+                    contextEntry.occurences++
+                })
+            })
         })
     },
     generateSentence(id, context) {
         const idTokens = Object.values(chain).filter(e => e.ids.includes(id) || !id)
-        const startTokens = idTokens.filter(e => e.start)
-            .sort((a, b) => arrayCompare.compare(b.context, context) - arrayCompare.compare(a.context, context))
+        const startTokens = idTokens.filter(e => e.start && e.context.find(c => context.includes(c.word)))
+            .sort((a, b) => b.context.sort(occurenceSort)[0].occurences - a.context.sort(occurenceSort)[0].occurences)
 
-        const startToken = randomArrayItem(startTokens.filter(a => arrayCompare.compare(a.context, context) && arrayCompare.compare(a.context, context) == arrayCompare.compare(startTokens[0].context, context)))
+        const startToken = startTokens[0]
 
         if (!startToken) {
             return
@@ -56,7 +53,7 @@ module.exports = {
             const nextTokens = result[result.length - 1].followedBy.filter(f => (f.id == id || !id))
                 .sort((a, b) => arrayCompare.compare(b.context, context) - arrayCompare.compare(a.context, context))
 
-                const nextToken = randomOccurenceItem(nextTokens.filter(a => arrayCompare.compare(a.context, context) && arrayCompare.compare(a.context, context) == arrayCompare.compare(nextTokens[0].context, context)))
+            const nextToken = randomOccurenceItem(nextTokens.filter(a => arrayCompare.compare(a.context, context) && arrayCompare.compare(a.context, context) == arrayCompare.compare(nextTokens[0].context, context)))
 
             if (nextToken.word == TERMINATOR) {
                 return result.map(t => t.word).join(" ")
@@ -66,7 +63,7 @@ module.exports = {
         }
     },
     chain
-} 
+}
 
 function init() {
     const chainsFile = fs.existsSync('chains.json')
@@ -138,6 +135,33 @@ function randomArrayItem(array) {
     return array[Math.floor(Math.random() * array.length)]
 }
 
+function findOrCreateContextEntry(array, word, id) {
+    const result = array.find(i => i.word == word && (i.id == id || !id))
+    
+    if (result) {
+        return result
+    }
+
+    const contextEntry = createContextEntry(word, id)
+    array.push(contextEntry)
+    return contextEntry
+}
+
+function createContextEntry(word, id) {
+    if(id) {
+        return {
+            id,
+            word,
+            occurences: 0
+        }
+    } else {
+        return {
+            word,
+            occurences: 0
+        }
+    }
+}
+
 function randomOccurenceItem(array) {
     const total = array.map(i => i.occurences).reduce((a, b) => a + b, 0)
     let selectedIndex = Math.floor(Math.random() * total)
@@ -149,4 +173,8 @@ function randomOccurenceItem(array) {
             return item
         }
     }
+}
+
+function occurenceSort(a, b) {
+    return b.occurences - a.occurences
 }

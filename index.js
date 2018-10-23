@@ -42,7 +42,7 @@ function message(message) {
         .join(" ")
 
         const contextTokens = tokenizer.tokenize(contextString)
-        markov.addToChain(message.content, user, channel, guild, contextTokens)
+        markov.addToChain(message.content, [user, channel, guild], contextTokens)
     })
 }
 
@@ -71,6 +71,9 @@ function handleCommand(message) {
 }
 
 function replyToMessage(sentence, channel) {
+    channel.send("Replying is currently disabled.")
+    return
+    
     const context = tokenizer.tokenize(sentence)
     const response = markov.generateSentence(null, context)
 

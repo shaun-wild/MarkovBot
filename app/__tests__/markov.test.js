@@ -6,294 +6,32 @@ test('chain is blank', () => {
 
 test('add to chain', () => {
     const sentence = "Hello sir"
-    const user = "shaun"
-    const channel = "general"
-    const guild = "shaunguild"
-
+    const ids = ["shaun", "general", "shaunguild"]
     const context = ["hello", "shaun"]
 
-    markov.addToChain(sentence, user, channel, guild, context)
+    markov.addToChain(sentence, ids, context)
 
-    expect(markov.chain).toEqual(
-        {
-            "Hello": {
-                "word": "Hello",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": true,
-            },
-            "sir": {
-                "word": "sir",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": false,
-            }
-        }
-    )
+    expect(markov.chain).toEqual({"Hello": {"context": [{"id": "shaun", "occurences": 1, "word": "hello"}, {"id": "shaun", "occurences": 1, "word": "shaun"}, {"id": "general", "occurences": 1, "word": "hello"}, {"id": "general", "occurences": 1, "word": "shaun"}, {"id": "shaunguild", "occurences": 1, "word": "hello"}, {"id": "shaunguild", "occurences": 1, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "sir"}], "ids": ["shaun", "general", "shaunguild"], "start": true, "word": "Hello"}, "sir": {"context":[{"id": "shaun", "occurences": 1, "word": "hello"}, {"id": "shaun", "occurences": 1, "word": "shaun"}, {"id": "general", "occurences": 1, "word": "hello"}, {"id": "general", "occurences": 1, "word": "shaun"}, {"id": "shaunguild", "occurences": 1, "word": "hello"}, {"id": "shaunguild", "occurences": 1, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "\u0003"}], "ids": ["shaun", "general", "shaunguild"], "start": false, "word": "sir"}})
 })
 
 test('updating existing', () => {
     const sentence = "Hello friend"
-    const user = "shaun"
-    const channel = "general"
-    const guild = "shaunguild"
-
+    const ids = ["shaun", "general", "shaunguild"]
     const context = ["hello", "shaun"]
 
-    markov.addToChain(sentence, user, channel, guild, context)
+    markov.addToChain(sentence, ids, context)
 
-    expect(markov.chain).toEqual(
-        {
-            "Hello": {
-                "word": "Hello",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "sir",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaun",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": true,
-            },
-            "sir": {
-                "word": "sir",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": false,
-            },
-            "friend": {
-                "word": "friend",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": false,
-            }
-        }
-    )
+    expect(markov.chain).toEqual({"Hello": {"context": [{"id": "shaun", "occurences": 2, "word": "hello"}, {"id": "shaun", "occurences": 2, "word": "shaun"}, {"id": "general", "occurences": 2, "word": "hello"}, {"id": "general", "occurences": 2, "word": "shaun"}, {"id": "shaunguild", "occurences": 2, "word": "hello"}, {"id": "shaunguild", "occurences": 2, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "friend"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "friend"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "friend"}], "ids": ["shaun", "general", "shaunguild"], "start": true, "word": "Hello"}, "friend": {"context": [{"id": "shaun", "occurences": 1, "word": "hello"}, {"id": "shaun", "occurences": 1, "word": "shaun"}, {"id": "general", "occurences": 1, "word": "hello"}, {"id": "general", "occurences": 1, "word": "shaun"}, {"id": "shaunguild", "occurences": 1, "word": "hello"}, {"id": "shaunguild", "occurences": 1, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "\u0003"}], "ids": ["shaun", "general", "shaunguild"], "start": false, "word": "friend"}, "sir": {"context": [{"id": "shaun", "occurences": 1, "word": "hello"}, {"id": "shaun", "occurences": 1, "word": "shaun"}, {"id": "general", "occurences": 1, "word": "hello"}, {"id": "general", "occurences": 1, "word": "shaun"}, {"id": "shaunguild", "occurences": 1, "word": "hello"}, {"id": "shaunguild", "occurences": 1, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences":1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "\u0003"}], "ids": ["shaun", "general", "shaunguild"], "start": false, "word": "sir"}})
 })
 
 test('same sentence', () => {
     const sentence = "Hello sir"
-    const user = "shaun"
-    const channel = "general"
-    const guild = "shaunguild"
-
+    const ids = ["shaun", "general", "shaunguild"]
     const context = ["hello", "shaun"]
 
-    markov.addToChain(sentence, user, channel, guild, context)
+    markov.addToChain(sentence, ids, context)
 
-    expect(markov.chain).toEqual(
-        {
-            "Hello": {
-                "word": "Hello",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "sir",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "sir",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "sir",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"],
-                    },
-                    {
-                        "id": "shaun",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "friend",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": true,
-            },
-            "sir": {
-                "word": "sir",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "\u0003",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "\u0003",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "\u0003",
-                        "occurences": 2,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": false,
-            },
-            "friend": {
-                "word": "friend",
-                "followedBy": [
-                    {
-                        "id": "shaun",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "general",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    },
-                    {
-                        "id": "shaunguild",
-                        "word": "\u0003",
-                        "occurences": 1,
-                        "context": ["hello", "shaun"]
-                    }
-                ],
-                "context": ["hello", "shaun"],
-                "ids": ["shaun", "general", "shaunguild"],
-                "start": false,
-            }
-        }
-    )
+    expect(markov.chain).toEqual({"Hello": {"context": [{"id": "shaun", "occurences": 3, "word": "hello"}, {"id": "shaun", "occurences": 3, "word": "shaun"}, {"id": "general", "occurences": 3, "word": "hello"}, {"id": "general", "occurences": 3, "word": "shaun"}, {"id": "shaunguild", "occurences": 3, "word": "hello"}, {"id": "shaunguild", "occurences": 3, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "shaun", "occurences": 2, "word": "sir"}, {"context": [{"occurences": 2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "general", "occurences": 2, "word": "sir"}, {"context": [{"occurences": 2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "shaunguild", "occurences": 2, "word": "sir"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "friend"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "friend"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "friend"}], "ids": ["shaun", "general", "shaunguild"], "start": true, "word": "Hello"}, "friend": {"context": [{"id": "shaun", "occurences": 1, "word": "hello"}, {"id": "shaun", "occurences": 1, "word": "shaun"}, {"id": "general", "occurences": 1, "word": "hello"}, {"id": "general", "occurences": 1, "word": "shaun"}, {"id": "shaunguild", "occurences": 1, "word": "hello"}, {"id": "shaunguild", "occurences": 1, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaun", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "general", "occurences": 1, "word": "\u0003"}, {"context": [{"occurences": 1, "word": "hello"}, {"occurences": 1, "word": "shaun"}], "id": "shaunguild", "occurences": 1, "word": "\u0003"}], "ids": ["shaun", "general", "shaunguild"], "start": false, "word": "friend"}, "sir": {"context": [{"id": "shaun", "occurences": 2, "word": "hello"}, {"id": "shaun", "occurences": 2, "word": "shaun"}, {"id": "general", "occurences": 2, "word": "hello"}, {"id": "general", "occurences": 2, "word": "shaun"}, {"id": "shaunguild", "occurences": 2, "word": "hello"}, {"id": "shaunguild", "occurences": 2, "word": "shaun"}], "followedBy": [{"context": [{"occurences": 2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "shaun", "occurences": 2, "word": "\u0003"}, {"context": [{"occurences": 2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "general", "occurences": 2, "word": "\u0003"}, {"context": [{"occurences":2, "word": "hello"}, {"occurences": 2, "word": "shaun"}], "id": "shaunguild", "occurences": 2, "word": "\u0003"}], "ids": ["shaun", "general", "shaunguild"], "start": false, "word": "sir"}})
 })
 
 test('generate sentence', () => {
