@@ -66,14 +66,11 @@ function handleCommand(message) {
         replyToMessage(sentence, message.channel)
     } else if (command == "info") {
         const entries = Object.keys(markov.chain).length
-        simulateSend(`I currently have ${entries} entries ${Math.floor(entries/1000000) * 100}% of final goal`, message.channel)
+        simulateSend(`I currently have ${entries} entries ${Math.floor((entries/1000000) * 100)}% of final goal`, message.channel)
     }
 }
 
-function replyToMessage(sentence, channel) {
-    channel.send("Replying is currently disabled.")
-    return
-    
+function replyToMessage(sentence, channel) {    
     const context = tokenizer.tokenize(sentence)
     const response = markov.generateSentence(null, context)
 

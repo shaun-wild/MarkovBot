@@ -37,29 +37,40 @@ module.exports = {
         })
     },
     generateSentence(id, context) {
-        const idTokens = Object.values(chain).filter(e => e.ids.includes(id) || !id)
-        const startTokens = idTokens.filter(e => e.start && e.context.find(c => context.includes(c.word)))
-            .sort((a, b) => b.context.sort(occurenceSort)[0].occurences - a.context.sort(occurenceSort)[0].occurences)
+        const contexts = Object.values(chain).map(c => this.getRelevantContext(c, id, context))
+            .filter(c => c.occurences)
+        
+        const startWord = randomOccurenceItem(contexts)
 
-        const startToken = startTokens[0]
+        const sentence = [ startWord ]
 
-        if (!startToken) {
-            return
+        if(!startWord) {
+            return null
         }
 
-        let result = [startToken]
+        while(true) {
+            const previous = sentence[sentence.length - 1]
+            const followedBy = chain[previous.word].followedBy
 
-        while (true) {
-            const nextTokens = result[result.length - 1].followedBy.filter(f => (f.id == id || !id))
-                .sort((a, b) => arrayCompare.compare(b.context, context) - arrayCompare.compare(a.context, context))
+            const followedByContexts = followedBy.map(f => this.getRelevantContext(f, id, context))
+                .filter(c => c.occurences)
 
-            const nextToken = randomOccurenceItem(nextTokens.filter(a => arrayCompare.compare(a.context, context) && arrayCompare.compare(a.context, context) == arrayCompare.compare(nextTokens[0].context, context)))
-
-            if (nextToken.word == TERMINATOR) {
-                return result.map(t => t.word).join(" ")
+            const nextWord = randomOccurenceItem(followedByContexts)
+            
+            if(nextWord.word == TERMINATOR) {
+                return sentence.map(s => s.word).join(" ")
             }
 
-            result.push(chain[nextToken.word])
+            sentence.push(nextWord)
+        }
+    },
+    getRelevantContext(chainEntry, id, context) {
+        const relevantContext = chainEntry.context.filter(c => (c.id == id || !id) && context.includes(c.word))
+        const total = relevantContext.reduce((t, c) => t += c.occurences, 0)
+    
+        return {
+            word: chainEntry.word,
+            occurences: total
         }
     },
     chain

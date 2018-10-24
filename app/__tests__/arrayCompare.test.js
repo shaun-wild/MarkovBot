@@ -7,7 +7,7 @@ test('compare equal arrays', () => {
 
     const expected = 3
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 test('compare partially equal arrays', () => {
@@ -17,7 +17,7 @@ test('compare partially equal arrays', () => {
 
     const expected = 1
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 test('compare partially equal arrays 2', () => {
@@ -27,7 +27,7 @@ test('compare partially equal arrays 2', () => {
 
     const expected = 2
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 test('compare non equal arrays', () => {
@@ -37,7 +37,7 @@ test('compare non equal arrays', () => {
 
     const expected = 0
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 test('compare equal strings', () => {
@@ -47,7 +47,7 @@ test('compare equal strings', () => {
 
     const expected = 3
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 test('compare partically equal strings', () => {
@@ -57,7 +57,7 @@ test('compare partically equal strings', () => {
 
     const expected = 2
 
-    expect(arrayCompare.compare(input1, input2)).toBe(expected)
+    expect(arrayCompare(input1, input2)).toBe(expected)
 })
 
 
