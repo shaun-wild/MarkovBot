@@ -37,10 +37,11 @@ module.exports = {
         })
     },
     generateSentence(id, context) {
-        const contexts = Object.values(chain).map(c => this.getRelevantContext(c, id, context))
-            .filter(c => c.occurences)
+        const contexts = this.getTopContexts(Object.values(chain), id, context)
         
         const startWord = randomOccurenceItem(contexts)
+
+        console.log(JSON.stringify(contexts, 2))
 
         const sentence = [ startWord ]
 
@@ -52,8 +53,9 @@ module.exports = {
             const previous = sentence[sentence.length - 1]
             const followedBy = chain[previous.word].followedBy
 
-            const followedByContexts = followedBy.map(f => this.getRelevantContext(f, id, context))
-                .filter(c => c.occurences)
+            const followedByContexts = this.getTopContexts(followedBy, id, context)
+
+            console.log(followedByContexts)
 
             const nextWord = randomOccurenceItem(followedByContexts)
             
@@ -72,6 +74,19 @@ module.exports = {
             word: chainEntry.word,
             occurences: total
         }
+    },
+    getTopContexts(contextArray, id, context) {
+        const relevantTokens = contextArray.map(f => this.getRelevantContext(f, id, context))
+                    .filter(c => c.occurences)
+                    .sort(occurenceSort)
+    
+        let top = 5
+    
+        if(relevantTokens.length < top) {
+            top = relevantTokens.length
+        }
+    
+        return relevantTokens.slice(0, top)
     },
     chain
 }
