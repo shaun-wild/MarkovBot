@@ -93,6 +93,9 @@ function handleCommand(message) {
         } else if(channel) {
             config.setConfig(guildId, "imitate", channel.id)
             simulateSend("Okay. I will imitate channel " + channel + ".", message.channel)
+        } else {
+            config.setConfig(guildId, "imitate", null)
+            simulateSend("Okay. I've stopped imitating.", message.channel)
         }
     }
 }

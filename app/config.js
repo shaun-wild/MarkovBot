@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const config = {}
+let config = {}
 
 module.exports = {
     setConfig(id, key, value) {
