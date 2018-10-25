@@ -1,5 +1,6 @@
 token.json
 chains.json
+config.json
 
 node_modules/
 coverage/

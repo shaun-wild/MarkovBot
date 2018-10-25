@@ -1,5 +1,4 @@
 const fs = require('fs')
-const arrayCompare = require('./arrayCompare')
 
 const TERMINATOR = "\u0003"
 
@@ -41,8 +40,6 @@ module.exports = {
         
         const startWord = randomOccurenceItem(contexts)
 
-        console.log(JSON.stringify(contexts, 2))
-
         const sentence = [ startWord ]
 
         if(!startWord) {
@@ -55,8 +52,6 @@ module.exports = {
 
             const followedByContexts = this.getTopContexts(followedBy, id, context)
 
-            console.log(followedByContexts)
-
             const nextWord = randomOccurenceItem(followedByContexts)
             
             if(nextWord.word == TERMINATOR) {
@@ -67,7 +62,7 @@ module.exports = {
         }
     },
     getRelevantContext(chainEntry, id, context) {
-        const relevantContext = chainEntry.context.filter(c => (c.id == id || !id) && context.includes(c.word))
+        const relevantContext = chainEntry.context.filter(c => (!id || ((!c.ids || c.ids.includes(id)) || (!c.id || c.id == id))) && context.includes(c.word))
         const total = relevantContext.reduce((t, c) => t += c.occurences, 0)
     
         return {
@@ -80,7 +75,7 @@ module.exports = {
                     .filter(c => c.occurences)
                     .sort(occurenceSort)
     
-        let top = 5
+        let top = 3
     
         if(relevantTokens.length < top) {
             top = relevantTokens.length
